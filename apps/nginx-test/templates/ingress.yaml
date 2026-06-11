@@ -1,9 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
-
 metadata:
   name: {{ .Release.Name }}
-  annotations
+  annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
@@ -11,7 +10,7 @@ spec:
   tls:
     - hosts:
         - {{ .Values.ingress.host }}
-        secretName: {{ .Release.Name }}-tls
+      secretName: {{ .Release.Name }}-tls
   rules:
     - host: {{ .Values.ingress.host }}
       http:
