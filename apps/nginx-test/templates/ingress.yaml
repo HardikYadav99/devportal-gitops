@@ -3,10 +3,15 @@ kind: Ingress
 
 metadata:
   name: {{ .Release.Name }}
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: / 
+  annotations
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - {{ .Values.ingress.host }}
+        secretName: {{ .Release.Name }}-tls
   rules:
     - host: {{ .Values.ingress.host }}
       http:
