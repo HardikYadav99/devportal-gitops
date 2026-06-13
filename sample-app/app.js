@@ -1,7 +1,7 @@
 const http = require('http');
 const server = http.createServer((req, res) => {
     res.writeHead(200, {'Content-Type': 'text/plain' });
-    res.end('Devportal sample app v2 -GitOps loop working \n');
+    res.end('Pipeline is working \n');
 });
 
 server.listen(3000, () => {
