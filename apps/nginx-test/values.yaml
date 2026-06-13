@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: 746486152802.dkr.ecr.ap-south-1.amazonaws.com/devportal-nginx-test
-  tag: 11234c4877acae0138272672b19c8f42a4ea0e09
+  tag: 30bdfd11980d5048aea0b2a433b8061d9061f10c
   pullPolicy: IfNotPresent
 
 service:
