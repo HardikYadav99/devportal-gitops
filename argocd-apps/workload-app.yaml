@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/HardikYadav99/devportal-gitops
     targetRevision: main
-    path: apps/nginx-test
+    path: workload
   destination:
     server: https://kubernetes.default.svc
     namespace: default
