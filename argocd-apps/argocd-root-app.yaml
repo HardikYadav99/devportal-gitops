@@ -5,8 +5,6 @@ kind: Application
 metadata:
   name: devportal-root
   namespace: argocd
-  finalizers:
-    - resources-finalizers.argocd.argoproj.io
 
 spec:
   project: default
