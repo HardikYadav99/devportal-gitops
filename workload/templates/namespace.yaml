@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+
+metadata:
+  name: ${{ .Release.Name }}
+  labels:
+    devportal.io/managed: "true"
+    devportal.io/app-name: ${{ .Release.Name }}
