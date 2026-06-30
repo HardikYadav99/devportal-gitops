@@ -1,9 +1,0 @@
-{
-    "appName": "ecommerce",
-    "namespace": "ecommerce"
-    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
-    "imageRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/ecommerce",
-    "createdAt": "2026-06-28T00:36:25Z",
-    "status": "active"
-    "type": "Single"
-  }

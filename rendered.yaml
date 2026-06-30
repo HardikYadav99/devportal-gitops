@@ -1,0 +1,129 @@
+---
+# Source: nginx-test/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+
+metadata:
+  name: $ecr-credentials-external-secrets
+  labels:
+    devportal.io/managed: "true"
+    devportal.io/app-name: $ecr-credentials-external-secrets
+
+---
+# Source: nginx-test/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: ecr-credentials-external-secrets
+  labels:
+    app: ecr-credentials-external-secrets
+spec:
+  type: ClusterIP
+  selector:
+    app: ecr-credentials-external-secrets
+  ports:
+    - port: 3000
+      targetPort: 3000
+
+---
+# Source: nginx-test/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ecr-credentials-external-secrets
+  labels:
+    app: ecr-credentials-external-secrets
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ecr-credentials-external-secrets
+  template:
+    metadata:
+      labels:
+        app: ecr-credentials-external-secrets
+    spec:
+      imagePullSecrets:
+        - name: ecr-credentials
+      containers:
+        - name: nginx
+          image: 746486152802.dkr.ecr.ap-south-1.amazonaws.com/test:df971b8
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 50m
+              memory: 64Mi
+
+---
+# Source: nginx-test/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ecr-credentials-external-secrets
+  labels:
+    app: ecr-credentials-external-secrets
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-production
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - test.hardikdevportal.duckdns.org
+      secretName: ecr-credentials-external-secrets-tls
+  rules:
+    - host: test.hardikdevportal.duckdns.org
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ecr-credentials-external-secrets
+                port:
+                  number: 3000
+---
+# Source: nginx-test/templates/ecr-credentials-external-secrets.yaml
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+
+metadata:
+  name: ecr-credentials
+  namespace: test
+spec:
+  refreshInterval: 6h
+  secretStoreRef:
+    name: aws-ssm-store
+    kind: ClusterSecretStore
+  target:
+    name: ecr-credentials
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/dockerconfigjson
+      data:
+        .dockerconfigjson: |
+          {"auths":{"746486152802.dkr.ecr.ap-south-1.amazonaws.com":{"username":"AWS","password":"{{ .ecrToken }}","auth":"{{ printf "AWS:%s" .ecrToken | b64enc }}"}}}
+  data:
+    - secretKey: ecrToken
+      remoteRef:
+        key: /devportal/ecr/token

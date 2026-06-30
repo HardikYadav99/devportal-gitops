@@ -1,9 +1,0 @@
-{
-    "appName": "transport",
-    "namespace": "transport"
-    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
-    "imageRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/transport",
-    "createdAt": "2026-06-30T00:46:15Z",
-    "status": "active"
-    "type": "Single"
-  }
