@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: 746486152802.dkr.ecr.ap-south-1.amazonaws.com/transport
+  tag: df971b8
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 3000
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+ingress:
+  host: transport.hardikdevportal.duckdns.org
