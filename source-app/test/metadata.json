@@ -1,9 +1,0 @@
-{
-    "appName": "test",
-    "namespace": "test"
-    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
-    "imageRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/test",
-    "createdAt": "2026-06-30T01:56:58Z",
-    "status": "active"
-    "type": "Single"
-  }
