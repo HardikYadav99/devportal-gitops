@@ -37,15 +37,13 @@ spec:
               cpu: {{ .Values.backend.resources.requests.cpu }}
               memory: {{ .Values.backend.resources.requests.memory }}
           livenessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: {{ .Values.backend.port }}
             initialDelaySeconds: 10
             periodSeconds: 10
             failureThreshold: 3
           readinessProbe:
-            httpGet:
-              path: /
+            tcpSocket:
               port: {{ .Values.backend.port }}
             initialDelaySeconds: 10
             periodSeconds: 10
