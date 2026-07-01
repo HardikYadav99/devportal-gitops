@@ -1,0 +1,10 @@
+{
+    "appName": "jaibhole",
+    "namespace": "jaibhole"
+    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
+    "imageFrontendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/jaibhole-frontend",
+    "imageBackendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/jaibhole-backend"
+    "createdAt": "2026-07-01T11:39:16Z",
+    "status": "active"
+    "type": "Single"
+  }
