@@ -1,0 +1,10 @@
+{
+    "appName": "shop",
+    "namespace": "shop"
+    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
+    "imageFrontendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/shop-frontend",
+    "imageBackendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/shop-backend"
+    "createdAt": "2026-07-01T12:47:11Z",
+    "status": "active"
+    "type": "Single"
+  }
