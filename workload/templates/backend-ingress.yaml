@@ -1,15 +1,17 @@
+{{- if .Values.backend.enabled }}
+
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ .Release.Name }}
+  name: {{ .Release.Name }}-backend
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Release.Name }}
+    component: backend
     managed-by: devportal
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /api/$1
-    cert-manager.io/cluster-issuer: letsencrypt-production
+    nginx.ingress.kubernetes.io/rewrite: /api/$1
 spec:
   ingressClassName: nginx
   tls:
@@ -20,7 +22,6 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          {{- if .Values.backend.enabled }}
           - path: /api/(.*)
             pathType: ImplementationSpecific
             backend:
@@ -28,14 +29,5 @@ spec:
                 name: {{ .Release.Name }}-backend
                 port:
                   number: 80
-          {{- end }}
-          {{- if .Values.frontend.enabled }}
-          - path: /(.*)
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: {{ .Release.Name }}-frontend
-                port:
-                  number: 80
-          {{- end }}
+{{- end }}
 
