@@ -1,0 +1,36 @@
+appName: ajay
+namespace: ajay
+
+frontend:
+  enabled: true
+  replicas: 1
+  image:
+    repository: 746486152802.dkr.ecr.ap-south-1.amazonaws.com/ajay-frontend
+    tag: c441bec
+    pullPolicy: IfNotPresent
+  port: 3000
+  resources:
+    limits:
+      cpu: "100m"
+      memory: "128Mi"
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+  
+backend:
+  enabled: true
+  replicas: 1
+  image:
+    repository: 746486152802.dkr.ecr.ap-south-1.amazonaws.com/ajay-backend
+    tag: c441bec
+    pullPolicy: IfNotPresent
+  port: 8000
+  resources:
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+ingress:
+  host: ajay.hardikdevportal.duckdns.org

@@ -1,0 +1,10 @@
+{
+    "appName": "ajay",
+    "namespace": "ajay"
+    "repoUrl": "https://github.com/HardikYadav99/user-app.git",
+    "imageFrontendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/ajay-frontend",
+    "imageBackendRepository": "746486152802.dkr.ecr.ap-south-1.amazonaws.com/ajay-backend"
+    "createdAt": "2026-07-10T15:32:39Z",
+    "status": "active"
+    "type": "Single"
+  }
